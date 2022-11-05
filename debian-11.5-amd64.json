@@ -1,0 +1,56 @@
+{
+  "variables": {
+    "vm_name": "debian-11.5.0-amd64",
+    "guest_os_type": "debian10-64",
+    "cpus": "1",
+    "memory_mb": "1024",
+    "disk_size_mb": "5120",
+    "iso_url": "file:/home/rs0x069/Downloads/soft/os/debian-11.5.0-amd64-netinst.iso",
+    "iso_checksum": "e307d0e583b4a8f7e5b436f8413d4707dd4242b70aea61eb08591dc0378522f3",
+    "iso_checksum_type": "sha256",
+    "ssh_username": "root",
+    "ssh_password": "Passw0rd",
+    "hostname": "packer-localhost",
+    "boot_wait": "5s"
+  },
+  "builders": [
+    {
+      "type": "vmware-iso",
+      "boot_command": [
+        "<esc><wait>",
+        "auto ",
+        "hostname={{ user `hostname` }} ", 
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-debian11.cfg",
+        "<enter>"
+      ],
+      "boot_wait": "{{ user `boot_wait` }}",
+      "cpus": "{{ user `cpus` }}",
+      "memory": "{{ user `memory_mb` }}",
+      "disk_size": "{{ user `disk_size_mb` }}",
+      "disk_type_id": "0",
+      "format": "ova",
+      "tools_upload_flavor": "linux",
+      "guest_os_type": "{{ user `guest_os_type` }}",
+      "version": 14,
+      "headless": false,
+      "http_directory": "http",
+      "iso_checksum": "{{ user `iso_checksum` }}",
+      "iso_url": "{{ user `iso_url` }}",
+      "shutdown_command": "shutdown -P now",
+      "ssh_username": "{{ user `ssh_username` }}",
+      "ssh_password": "{{ user `ssh_password` }}",
+      "ssh_port": 22,
+      "ssh_timeout": "3h",
+      "vm_name": "{{ user `vm_name` }}",
+      "output_directory": "output-{{ user `vm_name` }}-vmware",
+      "vmx_data": {
+        "cpuid.coresPerSocket": "1",
+        "ethernet0.pciSlotNumber": "32"
+      },
+      "vmx_remove_ethernet_interfaces": true
+    }
+  ],
+  "provisioners": [
+  ],
+  "post-processors": []
+}
