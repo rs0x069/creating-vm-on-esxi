@@ -7,7 +7,7 @@ Terraform uses provider [terraform-provider-esxi](https://github.com/josenk/terr
 
 ## Requirements
 * Packer - creating machine images
-* Virtual Box and/or [VMWare Workstation](https://www.vmware.com/go/getworkstation-linux) - platform for creating machine images (contains ovftool)
+* Virtual Box and/or [VMWare Workstation](https://www.vmware.com/go/getworkstation-linux) - platform for creating machine images (VMWare Workstation contains ovftool)
 * [ovftool](https://customerconnect.vmware.com/downloads/get-download?downloadGroup=OVFTOOL443) from VMware - converting VMX to OVA
 * Terraform - deploying to ESXi
 
